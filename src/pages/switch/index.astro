@@ -1,0 +1,20 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getCollection } from 'astro:content';
+
+const allArticles = await getCollection('articles');
+const switchArticles = allArticles.filter((a) => a.data.platform === 'switch');
+---
+
+<BaseLayout title="Nintendo Switch 記事一覧 | ゲームハードナビ">
+  <div class="card">
+    <h1>Nintendo Switch 記事一覧</h1>
+  </div>
+  <div class="card">
+    <ul>
+      {switchArticles.map((article) => (
+        <li><a href={`/articles/${article.id}`}>{article.data.title}</a></li>
+      ))}
+    </ul>
+  </div>
+</BaseLayout>

@@ -1,0 +1,32 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getCollection } from 'astro:content';
+
+const allArticles = await getCollection('articles');
+const switchArticles = allArticles.filter((a) => a.data.platform === 'switch');
+const ps5Articles = allArticles.filter((a) => a.data.platform === 'ps5');
+---
+
+<BaseLayout title="記事一覧 | ゲームハードナビ">
+  <div class="card">
+    <h1>記事一覧</h1>
+  </div>
+
+  <div class="card">
+    <h2><span class="badge-switch">Nintendo Switch</span></h2>
+    <ul>
+      {switchArticles.map((article) => (
+        <li><a href={`/articles/${article.id}`}>{article.data.title}</a></li>
+      ))}
+    </ul>
+  </div>
+
+  <div class="card">
+    <h2><span class="badge-ps5">PS5</span></h2>
+    <ul>
+      {ps5Articles.map((article) => (
+        <li><a href={`/articles/${article.id}`}>{article.data.title}</a></li>
+      ))}
+    </ul>
+  </div>
+</BaseLayout>

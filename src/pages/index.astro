@@ -1,0 +1,36 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { getCollection } from 'astro:content';
+
+const allArticles = await getCollection('articles');
+const recentArticles = allArticles
+  .sort((a, b) => new Date(b.data.pubDate).getTime() - new Date(a.data.pubDate).getTime())
+  .slice(0, 5);
+---
+
+<BaseLayout title="ゲームハードナビ | Switch・PS5の最新情報">
+  <section class="card">
+    <h1>🎮 ゲームハードナビ</h1>
+    <p>Nintendo Switch 2 と PS5、気になるゲーム機の情報をまとめてお届けします。</p>
+  </section>
+
+  <section class="card">
+    <h2>プラットフォームから探す</h2>
+    <p>
+      <a href="/switch"><span class="badge-switch">Nintendo Switch</span></a>
+      &nbsp;&nbsp;
+      <a href="/ps5"><span class="badge-ps5">PS5</span></a>
+    </p>
+  </section>
+
+  <section class="card">
+    <h2>新着記事</h2>
+    <ul>
+      {recentArticles.map((article) => (
+        <li>
+          <a href={`/articles/${article.id}`}>{article.data.title}</a>
+        </li>
+      ))}
+    </ul>
+  </section>
+</BaseLayout>

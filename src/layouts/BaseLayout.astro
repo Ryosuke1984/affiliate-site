@@ -1,0 +1,123 @@
+---
+// src/layouts/BaseLayout.astro
+// サイト共通のレイアウト。色・フォント・余白をここで一括管理する。
+interface Props {
+  title: string;
+}
+const { title } = Astro.props;
+---
+
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{title}</title>
+  <style>
+    :root {
+      --color-bg: #fdf6f0;
+      --color-switch: #ffd1dc;
+      --color-ps5: #cdeaff;
+      --color-accent: #ff9eb5;
+      --color-text: #4a4a4a;
+      --radius: 20px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: "Hiragino Maru Gothic Pro", "Yu Gothic", sans-serif;
+      background-color: var(--color-bg);
+      color: var(--color-text);
+      line-height: 1.8;
+    }
+
+    header {
+      background-color: white;
+      padding: 1.2rem 2rem;
+      border-radius: 0 0 var(--radius) var(--radius);
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    header a {
+      color: var(--color-text);
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    nav a {
+      margin-left: 1rem;
+      padding: 0.4rem 1rem;
+      border-radius: 999px;
+      background-color: var(--color-bg);
+      transition: background-color 0.2s;
+    }
+
+    nav a:hover {
+      background-color: var(--color-accent);
+      color: white;
+    }
+
+    main {
+      max-width: 800px;
+      margin: 2rem auto;
+      padding: 0 1.5rem;
+    }
+
+    .card {
+      background-color: white;
+      border-radius: var(--radius);
+      padding: 1.5rem;
+      margin-bottom: 1rem;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    }
+
+    .badge-switch {
+      background-color: var(--color-switch);
+      padding: 0.2rem 0.8rem;
+      border-radius: 999px;
+      font-size: 0.85rem;
+    }
+
+    .badge-ps5 {
+      background-color: var(--color-ps5);
+      padding: 0.2rem 0.8rem;
+      border-radius: 999px;
+      font-size: 0.85rem;
+    }
+
+    a {
+      color: #ff7a94;
+    }
+
+    img {
+      max-width: 100%;
+      border-radius: var(--radius);
+    }
+
+    h1, h2 {
+      color: #ff7a94;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <a href="/">🎮 ゲームハードナビ</a>
+    <nav>
+      <a href="/articles">記事一覧</a>
+      <a href="/switch">Switch</a>
+      <a href="/ps5">PS5</a>
+    </nav>
+  </header>
+  <main>
+    <slot />
+  </main>
+</body>
+</html>
