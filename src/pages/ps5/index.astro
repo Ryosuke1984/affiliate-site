@@ -6,7 +6,7 @@ const allArticles = await getCollection('articles');
 const ps5Articles = allArticles.filter((a) => a.data.platform === 'ps5');
 ---
 
-<BaseLayout title="PS5 記事一覧 | ゲームハードナビ">
+<BaseLayout title="PS5 記事一覧 | ゲームハードナビ" platform="ps5">
   <div class="card">
     <h1>PS5 記事一覧</h1>
   </div>

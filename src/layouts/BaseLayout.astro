@@ -1,10 +1,13 @@
 ---
 // src/layouts/BaseLayout.astro
 // サイト共通のレイアウト。色・フォント・余白をここで一括管理する。
+// platform に "ps5" を渡すと、PS5用の配色(白ベース+青ライン)になる。
 interface Props {
   title: string;
+  platform?: string;
 }
-const { title } = Astro.props;
+const { title, platform = "" } = Astro.props;
+const isPS5 = platform === "ps5";
 ---
 
 <!DOCTYPE html>
@@ -13,7 +16,7 @@ const { title } = Astro.props;
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>{title}</title>
-  <style>
+  <style define:vars={{ accentColor: isPS5 ? '#2d6fb3' : '#ff9eb5', headingColor: isPS5 ? '#1c1e22' : '#ff7a94' }}>
     :root {
       --color-bg: #fdf6f0;
       --color-switch: #ffd1dc;
@@ -94,7 +97,7 @@ const { title } = Astro.props;
     }
 
     a {
-      color: #ff7a94;
+      color: var(--accentColor);
     }
 
     img {
@@ -103,11 +106,26 @@ const { title } = Astro.props;
     }
 
     h1, h2 {
-      color: #ff7a94;
+      color: var(--headingColor);
+    }
+
+    /* PS5テーマ:白ベース+青いボーダー/区切り線 */
+    body.theme-ps5 .card {
+      border: 1.5px solid var(--accentColor);
+      box-shadow: none;
+    }
+
+    body.theme-ps5 h1, body.theme-ps5 h2 {
+      border-bottom: 2px solid var(--accentColor);
+      padding-bottom: 0.4rem;
+    }
+
+    body.theme-ps5 header {
+      border-bottom: 2px solid var(--accentColor);
     }
   </style>
 </head>
-<body>
+<body class={isPS5 ? "theme-ps5" : ""}>
   <header>
     <a href="/">🎮 ゲームハードナビ</a>
     <nav>

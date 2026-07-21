@@ -14,7 +14,7 @@ const { article } = Astro.props;
 const { Content } = await render(article);
 ---
 
-<BaseLayout title={`${article.data.title} | ゲームハードナビ`}>
+<BaseLayout title={`${article.data.title} | ゲームハードナビ`} platform={article.data.platform}>
   <div class="card">
     <a href="/articles">← 記事一覧に戻る</a>
     <h1>{article.data.title}</h1>
